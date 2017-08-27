@@ -3,6 +3,7 @@ package com.android.elliotmiller.projectapp.activities;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.android.elliotmiller.projectapp.R;
 import com.android.elliotmiller.projectapp.fragments.Form;
@@ -23,6 +24,6 @@ public class MainActivity extends AppCompatActivity implements Form.FormInterfac
 
     @Override
     public void sumbitReport(Report report) {
-
+        Toast.makeText(this, "Submitted Report!", Toast.LENGTH_SHORT).show();
     }
 }

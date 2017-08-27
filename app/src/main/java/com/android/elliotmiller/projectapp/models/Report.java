@@ -7,13 +7,13 @@ package com.android.elliotmiller.projectapp.models;
 public final class Report {
 
     public final String reportName;
-    public final String reportDistance;
+    public final String reportMiles;
     public final String reportDate;
 
-    public Report(String rName, String rDistance, String rDate) {
+    public Report(String rName, String rMiles, String rDate) {
         super();
         this.reportName = rName;
-        this.reportDistance = rDistance;
+        this.reportMiles = rMiles;
         this.reportDate = rDate;
     }
 }
