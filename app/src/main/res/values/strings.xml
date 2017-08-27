@@ -5,5 +5,6 @@
     <string name="miles_completed">Miles Completed</string>
     <string name="date">Date</string>
     <string name="add">Add</string>
-    <string name="create_activity">Activity Form</string>
+    <string name="create_activity">New Activity</string>
+    <string name="registered_activities">All Activities</string>
 </resources>

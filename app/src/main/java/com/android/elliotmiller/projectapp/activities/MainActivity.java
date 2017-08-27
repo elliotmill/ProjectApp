@@ -10,6 +10,7 @@ import com.android.elliotmiller.projectapp.fragments.Form;
 import com.android.elliotmiller.projectapp.fragments.Results;
 import com.android.elliotmiller.projectapp.models.Report;
 import com.android.elliotmiller.projectapp.models.ReportsStore;
+import com.android.elliotmiller.projectapp.utils.SharedPreferenceUtil;
 
 public class MainActivity extends AppCompatActivity implements Form.FormInterface {
     private ReportsStore reportsStore;
@@ -28,5 +29,17 @@ public class MainActivity extends AppCompatActivity implements Form.FormInterfac
     public void sumbitReport(Report report) {
         Toast.makeText(this, "Submitted Report!", Toast.LENGTH_SHORT).show();
         reportsStore.addReportToStore(report);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        reportsStore.setReports(new SharedPreferenceUtil().getReports(this));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        reportsStore.persistReports();
     }
 }

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.elliotmiller.projectapp.R;
 import com.android.elliotmiller.projectapp.adapters.ResultsAdapter;
@@ -54,14 +53,13 @@ public class Results extends Fragment implements ReportsStore.Client {
         tv = view.findViewById(R.id.tv_rv_empty);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         ReportsStore.getReportStore(getContext()).addReportListener(this);
-        rv.setAdapter(new ResultsAdapter(getContext(), null));
+        rv.setAdapter(new ResultsAdapter(null));
         return view;
     }
 
     @Override
     public void reportsUpdated(List<Report> newReports) {
-        Log.e(getClass().getSimpleName(), "New Report added. New Size -> " + newReports.size());
-        rv.setAdapter(new ResultsAdapter(getContext(), newReports));
+        rv.setAdapter(new ResultsAdapter(newReports));
         if (newReports.size() <= 0) {
             tv.setVisibility(View.VISIBLE);
         } else {

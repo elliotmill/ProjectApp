@@ -3,6 +3,8 @@ package com.android.elliotmiller.projectapp.models;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.elliotmiller.projectapp.utils.SharedPreferenceUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +39,17 @@ public class ReportsStore {
         client.reportsUpdated(this.reports);
     }
 
-    public void saveReports() {
-
+    public void setReports(List<Report> r) {
+        if (r != null) {
+            this.reports = r;
+            for (Client c : this.reportClients) {
+                c.reportsUpdated(r);
+            }
+        }
     }
 
-    public void getReports() {
-
+    public void persistReports() {
+        new SharedPreferenceUtil().saveReports(this.context, this.reports);
     }
 
     // ToDO: I need to find a way to unregister the Store clients

@@ -2,7 +2,6 @@ package com.android.elliotmiller.projectapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,23 +18,14 @@ import java.util.List;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.Holder> {
     private List<Report> reports;
-    private Context context;
 
-    public ResultsAdapter(Context ctx, List<Report> r) {
+    public ResultsAdapter(List<Report> r) {
         super();
-        this.context = ctx;
         this.reports = r;
-        if (r != null)
-            Log.e("Yo YO size", String.valueOf(r.size()));
-        if (this.context == null) {
-            Log.e("yo yo", "Context is null");
-        }
     }
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("hey", String.valueOf(this.reports.size()));
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
-        Log.e("hey", String.valueOf(this.reports.size()));
         return new Holder(view);
     }
 
@@ -49,7 +39,6 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.Holder> 
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        Log.e("hey", String.valueOf(this.reports.size()) + " position - " + String.valueOf(position));
         Report report = reports.get(position);
         holder.tvDate.setText(report.reportDate);
         holder.tvAcitivity.setText(report.reportName);
