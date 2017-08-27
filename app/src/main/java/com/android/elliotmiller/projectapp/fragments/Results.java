@@ -3,18 +3,31 @@ package com.android.elliotmiller.projectapp.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.elliotmiller.projectapp.R;
+import com.android.elliotmiller.projectapp.adapters.ResultsAdapter;
+import com.android.elliotmiller.projectapp.models.Report;
+import com.android.elliotmiller.projectapp.models.ReportsStore;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Results#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Results extends Fragment {
+public class Results extends Fragment implements ReportsStore.Client {
+
+    private RecyclerView rv;
+    private TextView tv;
 
 
     public Results() {
@@ -36,7 +49,23 @@ public class Results extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_results, container, false);
+        View view = inflater.inflate(R.layout.fragment_results, container, false);
+        rv = view.findViewById(R.id.rv);
+        tv = view.findViewById(R.id.tv_rv_empty);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        ReportsStore.getReportStore(getContext()).addReportListener(this);
+        rv.setAdapter(new ResultsAdapter(getContext(), null));
+        return view;
     }
 
+    @Override
+    public void reportsUpdated(List<Report> newReports) {
+        Log.e(getClass().getSimpleName(), "New Report added. New Size -> " + newReports.size());
+        rv.setAdapter(new ResultsAdapter(getContext(), newReports));
+        if (newReports.size() <= 0) {
+            tv.setVisibility(View.VISIBLE);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
+    }
 }
